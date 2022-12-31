@@ -1,0 +1,24 @@
+Problem URL: https://practice.geeksforgeeks.org/problems/intersection-of-two-arrays2404/1
+
+class Solution {
+    // Function to return the count of the number of elements in
+    // the intersection of two arrays.
+    public static int NumberofElementsInIntersection(int a[], int b[], int n, int m) {
+        // Your code here
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        
+        for(int n1: a) {
+            map.put(n1, n1);
+        }
+        
+        int count = 0;
+        for(int n1: b) {
+            if(map.containsKey(n1)) {
+                ++count;
+                map.remove(n1);
+            }
+        }
+        
+        return count;
+    }
+};

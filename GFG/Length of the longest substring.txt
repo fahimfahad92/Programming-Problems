@@ -1,0 +1,33 @@
+https://practice.geeksforgeeks.org/problems/length-of-the-longest-substring3036/1
+
+class Solution{
+    int longestUniqueSubsttr(String S){
+        int max = 0;
+        int curr = 0;
+        
+        Map<Character, Integer> map = new HashMap<Character, Integer>();
+        for(int i=0;i<S.length();i++) {
+            if(map.containsKey(S.charAt(i))) {
+                if(max<curr) {
+                    max = curr;
+                }
+                curr = 0;
+                i = map.get(S.charAt(i));
+                //System.out.println("I :" + i);
+                map = new HashMap<Character, Integer>();
+                //System.out.println(" ");
+                if(i>=S.length()) {
+                    break;
+                }
+            } else {
+                //System.out.print(S.charAt(i));
+                map.put(S.charAt(i),i);
+                ++curr;
+            }
+        }
+        
+        if(curr>max) max = curr;
+         
+        return max;
+    }
+}
