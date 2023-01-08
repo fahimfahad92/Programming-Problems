@@ -1,0 +1,24 @@
+class Solution{
+    
+    /*  Function to calculate the longest consecutive ones
+    *   N: given input to calculate the longest consecutive ones
+    */
+    public static int maxConsecutiveOnes(int N) {
+        
+        // Your code here
+        String s = Integer.toBinaryString(N);
+        int max = 0;
+        int count = 0;
+        
+        for(char c: s.toCharArray()) {
+            if('1'==c) {
+                ++count;
+            } else {
+                max = max<count? count: max;
+                count = 0;
+            }
+        }
+        max = max<count? count: max;
+        return max;
+    }
+}

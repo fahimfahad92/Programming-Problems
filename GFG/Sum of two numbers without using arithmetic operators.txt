@@ -1,0 +1,15 @@
+class Solution
+{
+    int sum(int a , int b)
+    {
+        //code here
+        int s1 = a>=b?b:a;
+        int s2 = a>b?a:b;
+        
+        while(s1>0) {
+            s2++;
+            s1--;
+        }
+        return s2;
+    }
+}

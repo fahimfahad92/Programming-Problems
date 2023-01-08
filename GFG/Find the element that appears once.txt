@@ -1,0 +1,18 @@
+class Sol
+{
+    public static int search(int A[], int N)
+    {
+        // your code here
+        Map<Integer,Integer> map = new HashMap<Integer,Integer>();
+        
+        for(int i: A) {
+            if(map.containsKey(i)) {
+                map.remove(i);
+            } else {
+                map.put(i,i);
+            }
+        }
+        
+        return map.entrySet().iterator().next().getValue();
+    }
+}
