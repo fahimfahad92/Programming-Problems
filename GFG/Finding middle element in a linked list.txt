@@ -1,0 +1,17 @@
+class Solution
+{
+    int getMiddle(Node head)
+    {
+         // Your code here.
+         Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+         
+         int c = 0;
+         while(head!=null) {
+             map.put(c, head.data);
+             head = head.next;
+             ++c;
+         }
+         
+         return map.get(c/2);
+    }
+}
