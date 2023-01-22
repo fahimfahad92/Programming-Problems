@@ -1,0 +1,50 @@
+class Solution
+{
+    public static String reduced_String(int k, String s)
+    {
+        // Your code goes here
+        if(k==1) return "";
+        
+        int len = s.length();
+        int prevLen = 0;
+        while(len!=prevLen) {
+            prevLen = s.length();
+            s = process(k,s);
+            len = s.length();
+        }
+        return s;
+    }
+    
+    private static String process(int k, String s) {
+        Stack<Character> stack = new Stack<Character>();
+        
+        stack.push(s.charAt(0));
+        int count = 0;
+        int pos = 1;
+        
+        while(pos<s.length()) {
+            if(!stack.empty() && s.charAt(pos)==stack.peek()) {
+                ++count;
+                if(count+1==k) {
+                    while(count>0) {
+                        stack.pop();
+                        --count;
+                    }
+                } else {
+                    stack.push(s.charAt(pos)); 
+                }
+            } else {
+                count = 0;    
+                stack.push(s.charAt(pos));  
+            }
+            ++pos;
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        while(!stack.empty()) {
+            sb.append(stack.pop());
+        }
+        
+        return sb.reverse().toString();
+    }
+}
