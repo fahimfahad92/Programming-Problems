@@ -1,0 +1,31 @@
+class Solution
+{
+    //Function to merge k sorted arrays.
+    public static ArrayList<Integer> mergeKArrays(int[][] arr,int k) 
+    {
+        // Write your code here.
+          TreeMap<Integer,Integer> map=new TreeMap<Integer,Integer>();
+          
+          
+          for(int i=0;i<k;i++) {
+              for(int j=0;j<k;j++) {
+                  if(map.containsKey(arr[i][j])) {
+                    int c = map.get(arr[i][j]);
+                    map.put(arr[i][j],c+1);
+                  } else {
+                      map.put(arr[i][j],1);
+                  }
+              }
+          }
+        
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        
+        for(Integer key : map.keySet()) {
+            for(int i =0;i<map.get(key);i++) {
+                list.add(key);
+            }
+        }
+        
+        return list;
+    }
+}

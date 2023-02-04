@@ -1,0 +1,28 @@
+class Solution
+{
+    //Function to return the minimum cost of connecting the ropes.
+    long minCost(long arr[], int n) 
+    {
+        if(n==1) return 0;
+        // your code here
+        Arrays.sort(arr);
+       List<Long> vals = new ArrayList<Long>();
+       
+       long sum = 0;
+       while(n>=2) {
+           sum = arr[0] + arr[1]; 
+           vals.add(sum);
+           arr[1] = sum;
+           arr = Arrays.copyOfRange(arr, 1, n);
+           Arrays.sort(arr);
+           n = n - 1;
+       }
+       
+       sum = 0;
+       
+       for(Long v: vals) {
+           sum += v;
+       }
+       return sum;
+    }
+}
