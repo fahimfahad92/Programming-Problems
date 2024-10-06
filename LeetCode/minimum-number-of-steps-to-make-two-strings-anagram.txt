@@ -1,0 +1,25 @@
+Problem: https://leetcode.com/problems/minimum-number-of-steps-to-make-two-strings-anagram/
+
+Solution:
+
+class Solution {
+    public int minSteps(String s, String t) {
+        Map<Character, Integer> map = new HashMap<Character, Integer>();
+
+        for (char c : t.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+
+        for (char c : s.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) - 1);
+        }
+
+        int count = 0;
+        for (Character c : map.keySet()) {
+            if (map.get(c) > 0)
+                count = count + map.get(c);
+        }
+
+        return count;
+    }
+}
