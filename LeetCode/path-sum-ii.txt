@@ -1,0 +1,48 @@
+Problem: https://leetcode.com/problems/path-sum-ii/
+
+Solution:
+
+class Solution {
+
+    public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+
+        List<List<Integer>> result = new ArrayList<>();
+
+        if (root.val == targetSum && root.left == null && root.right == null) {
+            result.add(List.of(targetSum));
+            return result;
+        }
+
+        process(root, targetSum, 0, result, new ArrayList<Integer>());
+
+        return result;
+    }
+
+    private void process(
+            TreeNode node, int targetSum, int currentSum, List<List<Integer>> result,
+            List<Integer> currentList) {
+
+        if (node == null) {
+            return;
+        }
+
+        currentSum += node.val;
+        currentList.add(node.val);
+
+        if (node.left == null && node.right == null) {
+            if (currentSum == targetSum) {
+                result.add(new ArrayList<Integer>(currentList));
+            }
+        } else {
+            process(node.left, targetSum, currentSum, result, currentList);
+            process(node.right, targetSum, currentSum, result, currentList);
+        }
+
+        currentList.remove(currentList.size() - 1);
+
+        return;
+    }
+}
