@@ -1,0 +1,48 @@
+Problem: https://leetcode.com/problems/camelcase-matching/
+
+Solution:
+
+class Solution {
+    public List<Boolean> camelMatch(String[] queries, String pattern) {
+
+        List<Boolean> list = new ArrayList<Boolean>();
+
+        int len = pattern.length();
+        for (String query : queries) {
+            list.add(process(query, pattern, len));
+        }
+
+        return list;
+    }
+
+    private boolean process(String query, String pattern, int len) {
+        int j = 0;
+        boolean allCheck = false;
+
+        for (int i = 0; i < query.length(); i++) {
+            if (allCheck && Character.isUpperCase(query.charAt(i))) {
+                return false;
+            } else if (!allCheck) {
+                if (Character.isUpperCase(query.charAt(i)) &&
+                        Character.isUpperCase(pattern.charAt(j)) &&
+                        query.charAt(i) != pattern.charAt(j)) {
+                    return false;
+                }
+
+                if (query.charAt(i) == pattern.charAt(j)) {
+                    ++j;
+                    if (j == len) {
+                        allCheck = true;
+                    }
+                }
+            }
+
+        }
+
+        if (allCheck) {
+            return true;
+        }
+
+        return false;
+    }
+}
