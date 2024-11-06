@@ -1,0 +1,28 @@
+Problem: https://leetcode.com/problems/sort-the-students-by-their-kth-score/
+
+Solution:
+
+class Solution {
+    public int[][] sortTheStudents(int[][] score, int k) {
+
+        int max = 0, l = 0, j = 0, pos = -1, swap = 0;
+        
+        for (int i = 0; i < score.length; i++) {
+            max = 0;
+            for (j = i; j < score.length; j++) {
+                if (max < score[j][k]) {
+                    max = score[j][k];
+                    pos = j;
+                }
+            }
+
+            for (l = 0; l < score[i].length; l++) {
+                swap = score[i][l];
+                score[i][l] = score[pos][l];
+                score[pos][l] = swap;
+            }
+        }
+
+        return score;
+    }
+}
