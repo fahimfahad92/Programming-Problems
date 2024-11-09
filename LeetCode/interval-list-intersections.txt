@@ -1,0 +1,45 @@
+https://leetcode.com/problems/interval-list-intersections/
+
+Solution:
+class Solution {
+    public int[][] intervalIntersection(int[][] firstList, int[][] secondList) {
+
+        if (firstList.length == 0)
+            return firstList;
+
+        if (secondList.length == 0)
+            return secondList;
+
+        TreeMap<Integer, Integer> map = new TreeMap<Integer, Integer>();
+        int back = 0, front = 0, pos = 0;
+        for (int i = 0; i < firstList.length; i++) {
+            for (int j = pos; j < secondList.length; j++) {
+                if (firstList[i][0] > secondList[j][1]) {
+                    continue;
+                }
+                back = Math.max(firstList[i][0], secondList[j][0]);
+                front = Math.min(firstList[i][1], secondList[j][1]);
+                if (front - back >= 0) {
+                    map.put(back, front);
+                }
+
+                if (firstList[i][1] < secondList[j][0]) {
+                    pos = j - 1 >= 0 ? j - 1 : 0;
+                    break;
+                }
+            }
+        }
+
+        int[][] result = new int[map.size()][2];
+
+        int count = 0;
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            result[count][0] = entry.getKey();
+            result[count][1] = entry.getValue();
+            ++count;
+        }
+
+        return result;
+
+    }
+}
