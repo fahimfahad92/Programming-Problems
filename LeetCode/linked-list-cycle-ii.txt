@@ -1,0 +1,56 @@
+https://leetcode.com/problems/linked-list-cycle-ii/
+
+Solution:
+
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ * int val;
+ * ListNode next;
+ * ListNode(int x) {
+ * val = x;
+ * next = null;
+ * }
+ * }
+ */
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        if (head == null) {
+            return head;
+        }
+        ListNode slow = head;
+        ListNode fast = head.next;
+
+        boolean cycle = false;
+        while (slow != null && fast != null) {
+            if (slow == fast) {
+                cycle = true;
+                break;
+            }
+            slow = slow.next;
+            fast = fast.next != null ? fast.next.next : null;
+        }
+
+        Map<ListNode, Integer> visited = new HashMap<ListNode, Integer>();
+
+        while (cycle) {
+            visited.clear();
+            fast = head.next;
+            visited.put(head, 1);
+            while (fast != null) {
+                if (visited.containsKey(fast)) {
+                    if (head == fast) {
+                        return head;
+                    }
+                    break;
+                }
+                visited.put(fast, 1);
+                fast = fast.next;
+
+            }
+            head = head.next;
+        }
+
+        return null;
+    }
+}
