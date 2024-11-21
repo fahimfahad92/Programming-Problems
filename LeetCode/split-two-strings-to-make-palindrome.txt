@@ -1,0 +1,45 @@
+https://leetcode.com/problems/split-two-strings-to-make-palindrome/
+
+Solution: Got TLE
+
+class Solution {
+    public boolean checkPalindromeFormation(String a, String b) {
+
+        int lenA = a.length();
+        if (lenA == 1)
+            return true;
+        int lenB = lenA;
+
+        int start = 1;
+
+        String s1 = "", s2 = "";
+
+        while (start < lenA) {
+            s1 = a.substring(0, start) + b.substring(start);
+            if (isPalindrome(s1))
+                return true;
+            s2 = b.substring(0, start) + a.substring(start);
+            if (isPalindrome(s2))
+                return true;
+
+            ++start;
+        }
+
+        return false;
+    }
+
+    private boolean isPalindrome(String str) {
+        int left = 0;
+        int right = str.length() - 1;
+
+        while (left < right) {
+            if (str.charAt(left) != str.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+
+        return true;
+    }
+}
