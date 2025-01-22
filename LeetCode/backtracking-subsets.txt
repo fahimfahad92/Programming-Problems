@@ -1,0 +1,25 @@
+https://leetcode.com/problems/subsets/description/
+
+
+Solution:
+
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> emptySubSet = new ArrayList<Integer>();
+        result.add(emptySubSet);
+        return backtrack(0, nums, result, new ArrayList<Integer>());
+    }
+
+    public List<List<Integer>> backtrack(int start, int[] nums, List<List<Integer>> result, List<Integer> tempList) {
+
+        for (int i = start; i < nums.length; i++) {
+            tempList.add(nums[i]);
+            result.add(new ArrayList<>(tempList));
+            result = backtrack(i + 1, nums, result, tempList);
+            tempList.remove(tempList.size() - 1);
+        }
+
+        return result;
+    }
+}
