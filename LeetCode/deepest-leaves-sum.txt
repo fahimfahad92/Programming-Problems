@@ -1,0 +1,49 @@
+https://leetcode.com/problems/deepest-leaves-sum/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode() {}
+ * TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) {
+ * this.val = val;
+ * this.left = left;
+ * this.right = right;
+ * }
+ * }
+ */
+class Solution {
+    public int deepestLeavesSum(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int depth = depth(root, 0);
+
+        return visit(root, 0, depth, 0);
+    }
+
+    int depth(TreeNode node, int level) {
+        if (node == null) {
+            return level;
+        }
+        level = level + 1;
+
+        return Math.max(depth(node.left, level), depth(node.right, level));
+    }
+
+    int visit(TreeNode node, int sum, int depth, int level) {
+        if (node == null) {
+            return 0;
+        }
+        level = level + 1;
+        if (level == depth && node.left == null && node.right == null) {
+            return sum + node.val;
+        }
+
+        sum = visit(node.right, sum, depth, level) + visit(node.left, sum, depth, level);
+        return sum;
+    }
+}

@@ -1,0 +1,28 @@
+https://leetcode.com/problems/non-decreasing-subsequences/
+
+Solution:
+class Solution {
+    public List<List<Integer>> findSubsequences(int[] nums) {
+        List<List<Integer>> results = new ArrayList<>();
+        backtrack(0, nums, new ArrayList<Integer>(), results, -101);
+        return new ArrayList<>(new HashSet<>(results));
+    }
+
+    public void backtrack(int start, int[] nums, List<Integer> tempList, List<List<Integer>> results, int lastNum) {
+        if (start > nums.length) {
+            return;
+        }
+
+        if (tempList.size() > 1) {
+            results.add(new ArrayList<Integer>(tempList));
+        }
+
+        for (int i = start; i < nums.length; i++) {
+            if (lastNum <= nums[i]) {
+                tempList.add(nums[i]);
+                backtrack(i + 1, nums, tempList, results, nums[i]);
+                tempList.remove(tempList.size() - 1);
+            }
+        }
+    }
+}

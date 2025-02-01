@@ -1,0 +1,41 @@
+https://leetcode.com/problems/iterator-for-combination/
+
+Solution:
+class CombinationIterator {
+    List<String> values;
+    int position = -1;
+    int len = 0;
+    int totalChar = 0;
+
+    public CombinationIterator(String characters, int combinationLength) {
+        char[] charArr = characters.toCharArray();
+        totalChar = charArr.length;
+        values = new ArrayList<String>();
+        values = backtrack(combinationLength, 0, charArr, new StringBuilder(""), values);
+        len = values.size();
+
+    }
+
+    public String next() {
+        return values.get(++position);
+    }
+
+    public boolean hasNext() {
+        return position < len - 1;
+    }
+
+    public List<String> backtrack(int len, int start, char[] charArr, StringBuilder curr, List<String> values) {
+        if (curr.length() == len) {
+            values.add(curr.toString());
+            return values;
+        }
+
+        for (int i = start; i < totalChar; i++) {
+            curr.append(charArr[i]);
+            backtrack(len, i + 1, charArr, curr, values);
+            curr.deleteCharAt(curr.length() - 1);
+        }
+
+        return values;
+    }
+}
