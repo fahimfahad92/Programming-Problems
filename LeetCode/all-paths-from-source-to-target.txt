@@ -1,0 +1,35 @@
+https://leetcode.com/problems/all-paths-from-source-to-target/
+
+Solution:
+
+class Solution {
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        int dest = graph.length - 1;
+        List<List<Integer>> result = new ArrayList<>();
+
+        List<Integer> process = new ArrayList<Integer>();
+        process.add(0);
+
+        for (int i = 0; i < graph[0].length; i++) {
+            backtrack(graph[0][i], dest, graph, process, result);
+        }
+
+        return result;
+    }
+
+    public void backtrack(Integer node, Integer dest, int[][] graph,
+            List<Integer> process, List<List<Integer>> result) {
+        process.add(node);
+        if (node == dest) {
+            result.add(new ArrayList<>(process));
+            process.remove(process.size() - 1);
+            return;
+        }
+
+        for (int neighbour: graph[node]) {
+            backtrack(neighbour, dest, graph, process, result);
+        }
+
+        process.remove(process.size() - 1);
+    }
+}
