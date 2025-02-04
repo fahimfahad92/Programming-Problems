@@ -1,0 +1,31 @@
+https://leetcode.com/problems/keys-and-rooms/
+
+
+class Solution {
+    public boolean canVisitAllRooms(List<List<Integer>> rooms) {
+        Map<Integer, Integer> values = new HashMap<Integer, Integer>();
+        Stack<Integer> stack = new Stack<Integer>();
+
+        values.put(0, 1);
+        List<Integer> keysForRoom = rooms.get(0);
+
+        for (Integer key : keysForRoom) {
+            stack.push(key);
+            values.put(key, 1);
+        }
+        Integer key;
+        while (!stack.isEmpty()) {
+            key = stack.pop();
+            keysForRoom = rooms.get(key);
+
+            for (Integer keyForRoom : keysForRoom) {
+                if (values.containsKey(keyForRoom)) {
+                    continue;
+                }
+                stack.push(keyForRoom);
+                values.put(keyForRoom, 1);
+            }
+        }
+        return values.size() == rooms.size();
+    }
+}
