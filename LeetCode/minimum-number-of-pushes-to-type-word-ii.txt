@@ -1,0 +1,35 @@
+https://leetcode.com/problems/minimum-number-of-pushes-to-type-word-ii
+
+class Solution {
+    public int minimumPushes(String word) {
+        int len = word.length();
+        int[] dp = new int[26];
+        Arrays.fill(dp, 0);
+        int val = 0;
+        for (int i = 0; i < len; i++) {
+            val = word.charAt(i) - 'a';
+            dp[val] = dp[val] + 1;
+        }
+
+        Arrays.sort(dp);
+
+        // System.out.println(Arrays.toString(dp));
+        int result = 0;
+        int multiply = 1;
+        int keyPad = 8;
+        for (int i = 25; i >= 0; i--) {
+            if (dp[i] == 0) {
+                break;
+            }
+            if (keyPad == 0) {
+                keyPad = 8;
+                ++multiply;
+            }
+
+            result = result + (multiply * dp[i]);
+            --keyPad;
+        }
+
+        return result;
+    }
+}
